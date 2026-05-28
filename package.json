@@ -1,0 +1,15 @@
+{
+  "name": "mtonga-sentiment",
+  "version": "0.1.0",
+  "private": true,
+  "description": "A simple TON sentiment voting frontend scaffold.",
+  "type": "module",
+  "scripts": {
+    "dev": "vite --host 0.0.0.0",
+    "build": "vite build",
+    "preview": "vite preview --host 0.0.0.0"
+  },
+  "devDependencies": {
+    "vite": "^5.4.19"
+  }
+}
