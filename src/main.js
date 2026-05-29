@@ -13,16 +13,30 @@
  * - Voting (T04): the "Cast vote on-chain" button submits the selected
  *   sentiment as a small TON transfer with a `yes`/`no` text comment.
  *   It is enabled only once a side is picked *and* a wallet is connected.
+ * - Live results (T08): a polling controller scans the chain and this
+ *   module renders the running counts + percentage bars in real time.
  */
 
 import { initTonConnect, onWalletStatus } from './tonconnect.js';
 import { castVote } from './voting.js';
+import { createResultsController } from './results.js';
+import { formatPct } from './tally.js';
 
 const statusElement = document.querySelector('#vote-status');
 const walletStatusElement = document.querySelector('#wallet-status');
 const castButton = document.querySelector('#cast-vote');
 const feedbackElement = document.querySelector('#vote-feedback');
 const voteButtons = document.querySelectorAll('[data-vote]');
+
+// Live-results DOM handles (T08).
+const resultsTotal = document.querySelector('#results-total');
+const resultsStatus = document.querySelector('#results-status');
+const yesPctEl = document.querySelector('#yes-pct');
+const noPctEl = document.querySelector('#no-pct');
+const yesBar = document.querySelector('#yes-bar');
+const noBar = document.querySelector('#no-bar');
+const yesCount = document.querySelector('#yes-count');
+const noCount = document.querySelector('#no-count');
 
 let selectedVote = null;
 let walletConnected = false;
@@ -78,6 +92,9 @@ async function handleCastVote() {
       `Vote sent! Your ${selectedVote.toUpperCase()} transaction is on its way — results update once it lands.`,
       'success',
     );
+    // Nudge a refresh so the user's own vote shows up without waiting for
+    // the next scheduled poll (it still needs a few seconds to land).
+    setTimeout(() => results.refresh(), 4000);
   } catch (error) {
     // TonConnect rejects with a `UserRejectsError` when the user cancels.
     const cancelled = /reject|cancel/i.test(error?.message ?? '');
@@ -121,3 +138,39 @@ function formatAddress(address) {
   if (hash.length <= 12) return `${chain}:${hash}`;
   return `${chain}:${hash.slice(0, 4)}…${hash.slice(-4)}`;
 }
+
+// --- Live results (T08) --------------------------------------------------
+
+const plural = (n) => `${n} vote${n === 1 ? '' : 's'}`;
+
+/** Paint a tally snapshot from the results controller into the DOM. */
+function renderResults({ tally, status, error }) {
+  if (yesBar) {
+    yesBar.style.width = `${tally.yesPct}%`;
+    yesBar.parentElement?.setAttribute('aria-valuenow', String(Math.round(tally.yesPct)));
+  }
+  if (noBar) {
+    noBar.style.width = `${tally.noPct}%`;
+    noBar.parentElement?.setAttribute('aria-valuenow', String(Math.round(tally.noPct)));
+  }
+  if (yesPctEl) yesPctEl.textContent = formatPct(tally.yesPct);
+  if (noPctEl) noPctEl.textContent = formatPct(tally.noPct);
+  if (yesCount) yesCount.textContent = plural(tally.yes);
+  if (noCount) noCount.textContent = plural(tally.no);
+  if (resultsTotal) resultsTotal.textContent = plural(tally.total);
+
+  if (resultsStatus) {
+    if (status === 'error') {
+      resultsStatus.dataset.kind = 'error';
+      resultsStatus.textContent = `Couldn't reach the TON API (${error?.message ?? 'unknown error'}). Retrying…`;
+    } else {
+      resultsStatus.dataset.kind = '';
+      resultsStatus.textContent = tally.total
+        ? 'Live from on-chain transactions · updates automatically.'
+        : 'No votes yet — be the first to cast one.';
+    }
+  }
+}
+
+const results = createResultsController({ render: renderResults });
+results.start();

@@ -209,6 +209,86 @@ h1 {
   color: #fcd34d;
 }
 
+.results-panel {
+  padding: 24px;
+  border: 1px solid rgba(148, 163, 184, 0.24);
+  border-radius: 22px;
+  background: rgba(15, 23, 42, 0.72);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08);
+  display: grid;
+  gap: 18px;
+}
+
+.results-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.results-head h2 {
+  margin: 0;
+  font-size: 1.1rem;
+}
+
+.results-total {
+  font-weight: 800;
+  font-size: 1rem;
+  color: #22d3ee;
+}
+
+.result-row {
+  display: grid;
+  gap: 8px;
+}
+
+.result-label {
+  display: flex;
+  justify-content: space-between;
+  font-weight: 700;
+}
+
+.result-pct {
+  font-variant-numeric: tabular-nums;
+}
+
+.meter {
+  height: 14px;
+  border-radius: 999px;
+  background: rgba(148, 163, 184, 0.18);
+  overflow: hidden;
+}
+
+.meter-fill {
+  height: 100%;
+  width: 0;
+  border-radius: 999px;
+  transition: width 420ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.meter-fill--yes {
+  background: linear-gradient(90deg, #059669, #22c55e);
+}
+
+.meter-fill--no {
+  background: linear-gradient(90deg, #dc2626, #f97316);
+}
+
+.result-count {
+  color: #94a3b8;
+  font-variant-numeric: tabular-nums;
+}
+
+.results-status {
+  margin: 0;
+  font-size: 0.9rem;
+  color: #94a3b8;
+}
+
+.results-status[data-kind='error'] {
+  color: #fca5a5;
+}
+
 .status-panel {
   padding: 24px;
   border: 1px solid rgba(148, 163, 184, 0.24);
