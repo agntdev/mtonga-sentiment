@@ -20,6 +20,31 @@ body {
     linear-gradient(135deg, #020617 0%, #111827 52%, #172554 100%);
 }
 
+.topbar {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding: 16px 24px;
+  position: sticky;
+  top: 0;
+  z-index: 5;
+  background: linear-gradient(180deg, rgba(2, 6, 23, 0.85), rgba(2, 6, 23, 0));
+}
+
+.tonconnect-slot {
+  display: flex;
+}
+
+.wallet-status {
+  margin: 12px 0 0;
+  color: #94a3b8;
+  font-size: 0.95rem;
+}
+
+body[data-wallet-connected='true'] .wallet-status {
+  color: #4ade80;
+}
+
 button {
   font: inherit;
 }
