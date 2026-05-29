@@ -14,7 +14,6 @@
 
 import { beginCell } from '@ton/core';
 
-import { getTonConnectUI } from './tonconnect.js';
 import { VOTE_ADDRESS, VOTE_AMOUNT_NANO, VALID_VOTES } from './config.js';
 
 /** A vote request stays valid for 5 minutes after it is built. */
@@ -88,6 +87,9 @@ export function buildVoteTransaction(vote, nowSeconds = Math.floor(Date.now() / 
  */
 export async function castVote(vote) {
   const tx = buildVoteTransaction(vote);
+  // Lazy-import keeps the heavy, browser-only TonConnect SDK out of the
+  // module graph for unit tests of the pure helpers above (T09).
+  const { getTonConnectUI } = await import('./tonconnect.js');
   const ui = getTonConnectUI();
   if (!ui.connected) {
     throw new Error('Connect a TON wallet before casting a vote.');
