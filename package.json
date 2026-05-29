@@ -9,6 +9,10 @@
     "build": "vite build",
     "preview": "vite preview --host 0.0.0.0"
   },
+  "dependencies": {
+    "@ton/core": "^0.59.1",
+    "@tonconnect/ui": "^2.0.11"
+  },
   "devDependencies": {
     "vite": "^5.4.19"
   }
