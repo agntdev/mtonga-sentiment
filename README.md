@@ -22,13 +22,19 @@ Create a production build:
 npm run build
 ```
 
-## Current scope
+Run the test suite:
 
-This scaffold includes:
+```bash
+npm test
+```
 
-- Vite-based static frontend structure
-- `index.html` entrypoint
-- `src/styles.css` responsive layout and voting button styles
-- `src/main.js` basic sentiment-selection state
+## Testing
 
-Future tasks can connect the selected `yes` / `no` value to TonConnect transactions and on-chain result parsing.
+Unit tests (Vitest) cover the pure logic that the app depends on:
+
+- `test/voting.test.js` — vote validation + TEP-74 text-comment encoding/round-trip
+- `test/parseVotes.test.js` — comment extraction (pre-decoded + BOC fallback), classification, and `VoteStore` dedup/ordering
+- `test/tally.test.js` — counts and percentages that always sum to 100
+- `test/results.test.js` — the polling controller (fetch → parse → tally) with an injected `fetch`
+
+CI (`.github/workflows/ci.yml`) runs `npm test` and `npm run build` on every push and pull request.
