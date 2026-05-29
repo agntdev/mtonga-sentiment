@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content="Vote bullish or bearish on TON sentiment." />
+    <meta name="description" content="Vote bullish or bearish on TON sentiment by sending a small TON transaction." />
     <title>mTonga sentiment</title>
     <link rel="stylesheet" href="/src/styles.css" />
   </head>
@@ -13,18 +13,32 @@
         <p class="eyebrow">TON sentiment tracker</p>
         <h1 id="page-title">Are you bullish or bearish on TON?</h1>
         <p class="hero-copy">
-          A lightweight frontend scaffold for collecting sentiment votes and later connecting them to TonConnect and on-chain transaction comments.
+          Cast an on-chain vote with a single tap. Connect your wallet, pick a
+          side, and we'll tally the result from real TON transactions — no
+          backend, no accounts.
         </p>
       </section>
 
       <section class="vote-card" aria-label="Sentiment vote options">
-        <button class="vote-button vote-button--yes" data-vote="yes" type="button">
-          <span>Yes</span>
-          <small>Bullish</small>
+        <button
+          class="vote-button vote-button--yes"
+          data-vote="yes"
+          type="button"
+          aria-label="Vote bullish — Pavel Durov"
+        >
+          <span class="vote-emoji" aria-hidden="true">🧑‍💻</span>
+          <span class="vote-label">Yes</span>
+          <small>Bullish · Durov</small>
         </button>
-        <button class="vote-button vote-button--no" data-vote="no" type="button">
-          <span>No</span>
-          <small>Bearish</small>
+        <button
+          class="vote-button vote-button--no"
+          data-vote="no"
+          type="button"
+          aria-label="Vote bearish — bear"
+        >
+          <span class="vote-emoji" aria-hidden="true">🐻</span>
+          <span class="vote-label">No</span>
+          <small>Bearish · Bear</small>
         </button>
       </section>
 
