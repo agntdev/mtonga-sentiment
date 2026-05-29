@@ -8,6 +8,9 @@
     <link rel="stylesheet" href="/src/styles.css" />
   </head>
   <body>
+    <header class="topbar" aria-label="Wallet connection">
+      <div id="tonconnect-button" class="tonconnect-slot"></div>
+    </header>
     <main class="app-shell">
       <section class="hero" aria-labelledby="page-title">
         <p class="eyebrow">TON sentiment tracker</p>
@@ -31,6 +34,7 @@
       <section class="status-panel" aria-live="polite">
         <h2>Current selection</h2>
         <p id="vote-status">Choose a sentiment to prepare a vote.</p>
+        <p id="wallet-status" class="wallet-status">Wallet: not connected.</p>
       </section>
     </main>
 
