@@ -52,6 +52,37 @@
         <p id="vote-feedback" class="vote-feedback" role="status" aria-live="polite"></p>
       </section>
 
+      <section class="results-panel" aria-label="Live sentiment results">
+        <div class="results-head">
+          <h2>Live sentiment</h2>
+          <span id="results-total" class="results-total">0 votes</span>
+        </div>
+
+        <div class="result-row">
+          <div class="result-label">
+            <span>🧑‍💻 Bullish</span>
+            <span id="yes-pct" class="result-pct">0%</span>
+          </div>
+          <div class="meter" role="progressbar" aria-labelledby="yes-pct" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+            <div id="yes-bar" class="meter-fill meter-fill--yes" style="width: 0%"></div>
+          </div>
+          <small id="yes-count" class="result-count">0 votes</small>
+        </div>
+
+        <div class="result-row">
+          <div class="result-label">
+            <span>🐻 Bearish</span>
+            <span id="no-pct" class="result-pct">0%</span>
+          </div>
+          <div class="meter" role="progressbar" aria-labelledby="no-pct" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+            <div id="no-bar" class="meter-fill meter-fill--no" style="width: 0%"></div>
+          </div>
+          <small id="no-count" class="result-count">0 votes</small>
+        </div>
+
+        <p id="results-status" class="results-status" aria-live="polite">Loading live results…</p>
+      </section>
+
       <section class="status-panel" aria-live="polite">
         <h2>Current selection</h2>
         <p id="vote-status">Choose a sentiment to prepare a vote.</p>
