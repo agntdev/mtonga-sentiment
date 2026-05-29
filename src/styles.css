@@ -92,8 +92,22 @@ h1 {
   box-shadow: 0 32px 100px rgba(15, 23, 42, 0.65);
 }
 
-.vote-button span {
-  font-size: clamp(2.75rem, 9vw, 6rem);
+.vote-emoji {
+  font-size: clamp(3rem, 10vw, 6.5rem);
+  line-height: 1;
+  filter: drop-shadow(0 6px 18px rgba(0, 0, 0, 0.45));
+  display: inline-block;
+  transition: transform 200ms ease;
+}
+
+.vote-button:hover .vote-emoji,
+.vote-button:focus-visible .vote-emoji,
+.vote-button.is-selected .vote-emoji {
+  transform: scale(1.08) rotate(-3deg);
+}
+
+.vote-label {
+  font-size: clamp(1.8rem, 6vw, 3.4rem);
   font-weight: 900;
   line-height: 1;
 }
